@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react";
 import { BentoGrid } from "@/components/canvas/BentoGrid";
-import { EditorSidebar, ThemePreset } from "@/components/layout/EditorSidebar";
+import { EditorSidebar } from "@/components/layout/EditorSidebar";
 import { Navbar } from "@/components/layout/Navbar";
 import { CardEditModal } from "@/components/canvas/CardEditModal";
 import { MOCK_CARDS } from "@/data/mock-data";
@@ -77,7 +77,6 @@ export default function EditorPage() {
   const [cards, setCards] = useState<BentoCard[]>(MOCK_CARDS);
   const [isPublished, setIsPublished] = useState(false);
   const [isPreviewMode, setIsPreviewMode] = useState(false);
-  const [preset, setPreset] = useState<ThemePreset>("velvet");
 
   // Modal edit state
   const [editingCard, setEditingCard] = useState<BentoCard | null>(null);
@@ -93,10 +92,6 @@ export default function EditorPage() {
       const savedPublished = localStorage.getItem("bento_published");
       if (savedPublished !== null) {
         setIsPublished(savedPublished === "true");
-      }
-      const savedPreset = localStorage.getItem("bento_preset") as ThemePreset | null;
-      if (savedPreset) {
-        setPreset(savedPreset);
       }
     } catch {
       // Ignore localStorage read errors in private browsing
@@ -160,13 +155,6 @@ export default function EditorPage() {
     });
   }, []);
 
-  const handlePresetChange = useCallback((newPreset: ThemePreset) => {
-    setPreset(newPreset);
-    try {
-      localStorage.setItem("bento_preset", newPreset);
-    } catch {}
-  }, []);
-
   const handleResetToDefault = () => {
     if (confirm("Reset layout to default starter template?")) {
       saveCardsToStorage(MOCK_CARDS);
@@ -175,8 +163,7 @@ export default function EditorPage() {
 
   return (
     <div
-      data-preset={preset}
-      className="flex flex-col h-screen overflow-hidden bg-[var(--background)] text-[var(--text-primary)] transition-colors duration-200"
+      className="flex flex-col h-screen overflow-hidden bg-[var(--background)] text-[var(--text-primary)] transition-colors duration-150"
     >
       <Navbar />
 
@@ -189,8 +176,6 @@ export default function EditorPage() {
             isPublished={isPublished}
             isPreviewMode={isPreviewMode}
             onTogglePreview={() => setIsPreviewMode(true)}
-            preset={preset}
-            onPresetChange={handlePresetChange}
           />
         )}
 
@@ -198,18 +183,21 @@ export default function EditorPage() {
         <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
           <div className="mx-auto max-w-6xl">
             {/* Canvas Header / Controls */}
-            <div className="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-[var(--border-color)] pb-4">
+            <div className="mb-6 flex flex-wrap items-center justify-between gap-3 border-b-2 border-[var(--border-color)] pb-4">
               <div>
                 <div className="flex items-center gap-2">
-                  <h1 className="text-sm font-semibold tracking-tight text-[var(--text-primary)]">
-                    {isPreviewMode ? "Live Portfolio Preview" : "Canvas Editor"}
+                  <h1
+                    className="text-lg font-bold uppercase tracking-tight text-[var(--text-primary)] leading-none"
+                    style={{ fontFamily: "var(--font-display)" }}
+                  >
+                    {isPreviewMode ? "PREVIEW // PORTFOLIO_LIVE" : "CANVAS // MODULAR_GRID"}
                   </h1>
-                  <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--text-muted)] border border-[var(--border-color)] px-1.5 py-0.5 rounded-sm">
-                    {preset}
+                  <span className="font-mono text-[9px] uppercase font-bold text-black bg-[#FFDE59] border border-black px-1.5 py-0.5 shadow-[1.5px_1.5px_0px_#000]">
+                    BRUTAL_GRID
                   </span>
                 </div>
-                <p className="text-xs text-[var(--text-muted)] font-mono mt-0.5">
-                  {cards.length} widgets · {isPreviewMode ? "interactive view" : "drag to reorder · click pencil to edit"}
+                <p className="text-xs text-[var(--text-muted)] font-mono mt-1">
+                  MODULES: {cards.length} · COLS: 4 · {isPreviewMode ? "INTERACTIVE_VIEW" : "DRAG_TO_REORDER // CLICK PENCIL TO EDIT"}
                 </p>
               </div>
 
@@ -220,24 +208,23 @@ export default function EditorPage() {
                     size="sm"
                     onClick={() => setIsPreviewMode(false)}
                   >
-                    Back to Edit Mode
+                    RETURN TO EDIT
                   </Button>
                 ) : (
                   <>
                     <Button
-                      variant="ghost"
+                      variant="outline"
                       size="sm"
                       onClick={handleResetToDefault}
-                      className="text-xs font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)]"
                     >
-                      <RotateCcw className="h-3.5 w-3.5 mr-1" /> Reset
+                      <RotateCcw className="h-3 w-3 mr-1" /> RESET
                     </Button>
                     <Button
                       variant="outline"
                       size="sm"
                       onClick={() => setIsPreviewMode(true)}
                     >
-                      Preview Mode
+                      PREVIEW MODE
                     </Button>
                   </>
                 )}
@@ -246,10 +233,10 @@ export default function EditorPage() {
                   <a
                     href="/p/yasiru"
                     target="_blank"
-                    className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-500/20 bg-emerald-500/10 px-3 py-1.5 font-mono text-[11px] text-emerald-400 hover:bg-emerald-500/20 transition-colors"
+                    className="inline-flex items-center gap-1.5 rounded-none border-2 border-black bg-[#25D366] px-3 py-1 font-mono text-[11px] font-bold text-black shadow-[2px_2px_0px_#000] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all"
                   >
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    Live URL <ExternalLink className="h-3 w-3" />
+                    <span className="h-2 w-2 rounded-full bg-black animate-pulse" />
+                    LIVE URL <ExternalLink className="h-3 w-3" />
                   </a>
                 )}
               </div>
@@ -265,16 +252,19 @@ export default function EditorPage() {
             />
 
             {cards.length === 0 && (
-              <div className="flex flex-col items-center justify-center p-12 border border-dashed border-[var(--border-color)] rounded-2xl text-center">
-                <Sparkles className="h-8 w-8 text-[var(--accent)] mb-3 opacity-60" />
-                <h3 className="text-sm font-semibold text-[var(--text-primary)] mb-1">
-                  Your canvas is currently empty
+              <div className="flex flex-col items-center justify-center p-12 border-2 border-dashed border-[var(--border-color)] bg-[var(--bg-surface)] text-center">
+                <Sparkles className="h-8 w-8 text-[#FFDE59] mb-3" />
+                <h3
+                  className="text-base font-bold uppercase tracking-tight text-[var(--text-primary)] mb-1"
+                  style={{ fontFamily: "var(--font-display)" }}
+                >
+                  CANVAS // EMPTY_WORKSPACE
                 </h3>
-                <p className="text-xs text-[var(--text-muted)] max-w-sm mb-4">
-                  Choose a widget from the catalog in the left sidebar to start building your portfolio.
+                <p className="text-xs font-mono text-[var(--text-muted)] max-w-sm mb-4">
+                  SELECT A WIDGET FROM THE LEFT CATALOG TO INITIALIZE YOUR NEO-BRUTALIST BENTO GRID.
                 </p>
-                <Button variant="outline" size="sm" onClick={() => handleAddCard("PROFILE")}>
-                  Add Profile Widget
+                <Button variant="primary" size="sm" onClick={() => handleAddCard("PROFILE")}>
+                  ADD PROFILE CARD
                 </Button>
               </div>
             )}

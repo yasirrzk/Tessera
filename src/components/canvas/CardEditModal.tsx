@@ -77,21 +77,24 @@ export function CardEditModal({ card, isOpen, onClose, onSave }: CardEditModalPr
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="relative w-full max-w-lg overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--bg-card)] shadow-2xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-none animate-in fade-in duration-100">
+      <div className="relative w-full max-w-lg overflow-hidden rounded-none border-2 border-[var(--border-color)] bg-[var(--bg-card)] shadow-[8px_8px_0px_var(--border-color)]">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-[var(--border-color)] px-6 py-4">
+        <div className="flex items-center justify-between border-b-2 border-[var(--border-color)] px-6 py-3.5 bg-[var(--bg-surface)]">
           <div>
-            <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--accent)] font-semibold">
-              Edit Widget
+            <span className="font-mono text-[9px] uppercase font-bold tracking-wider text-black bg-[#FFDE59] border border-black px-1.5 py-0.5">
+              CONFIG // WIDGET
             </span>
-            <h2 className="text-base font-semibold text-[var(--text-primary)]">
+            <h2
+              className="text-base font-bold uppercase tracking-tight text-[var(--text-primary)] mt-1"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
               {card.type.replace("_", " ")}
             </h2>
           </div>
           <button
             onClick={onClose}
-            className="rounded-lg p-1.5 text-[var(--text-muted)] hover:bg-white/5 hover:text-[var(--text-primary)] transition-colors"
+            className="flex h-7 w-7 items-center justify-center border-2 border-[var(--border-color)] bg-[var(--bg-card)] text-[var(--text-primary)] shadow-[2px_2px_0px_var(--border-color)] hover:bg-[#FF5722] hover:text-white transition-all cursor-pointer"
           >
             <X className="h-4 w-4" />
           </button>
@@ -101,8 +104,8 @@ export function CardEditModal({ card, isOpen, onClose, onSave }: CardEditModalPr
         <div className="max-h-[70vh] overflow-y-auto px-6 py-5 space-y-5">
           {/* Size Selector */}
           <div>
-            <label className="block font-mono text-[11px] uppercase tracking-wider text-[var(--text-muted)] mb-2">
-              Card Dimensions
+            <label className="block font-mono text-[10px] uppercase font-bold tracking-wider text-[var(--text-muted)] mb-2">
+              GRID_DIMENSIONS // PRESET
             </label>
             <div className="grid grid-cols-4 gap-2">
               {SIZE_PRESETS.map((preset) => {
@@ -112,14 +115,14 @@ export function CardEditModal({ card, isOpen, onClose, onSave }: CardEditModalPr
                     key={preset.size}
                     type="button"
                     onClick={() => handleSizeChange(preset.w, preset.h)}
-                    className={`flex flex-col items-center justify-center rounded-xl p-2.5 border transition-all cursor-pointer ${
+                    className={`flex flex-col items-center justify-center rounded-none p-2 border-2 transition-all cursor-pointer select-none ${
                       isSelected
-                        ? "border-[var(--accent)] bg-[var(--accent)]/10 text-[var(--text-primary)] shadow-sm"
-                        : "border-[var(--border-color)] hover:border-[var(--border-hover)] bg-[var(--bg-surface)] text-[var(--text-secondary)]"
+                        ? "border-[var(--border-color)] bg-[#FFDE59] text-black shadow-[3px_3px_0px_var(--border-color)] translate-x-[-1px] translate-y-[-1px]"
+                        : "border-[var(--border-color)] bg-[var(--bg-surface)] text-[var(--text-primary)] shadow-[1.5px_1.5px_0px_var(--border-color)] hover:bg-white"
                     }`}
                   >
-                    <span className="font-mono text-xs font-semibold">{preset.label}</span>
-                    <span className="text-[10px] text-[var(--text-muted)] truncate max-w-full">
+                    <span className="font-mono text-xs font-bold">{preset.label}</span>
+                    <span className="text-[9px] font-mono text-[var(--text-muted)] truncate max-w-full">
                       {preset.desc.split(" ")[0]}
                     </span>
                   </button>

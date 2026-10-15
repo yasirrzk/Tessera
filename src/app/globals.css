@@ -3,94 +3,52 @@
 @theme inline {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-display: var(--font-playfair), Georgia, serif;
+  --font-display: var(--font-space-grotesk), system-ui, sans-serif;
 
-  /* Dark theme colors */
-  --color-bg-base: #0d0f12;
-  --color-bg-surface: #14171c;
-  --color-bg-card: #1b1f26;
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-border-hover: rgba(255, 255, 255, 0.2);
-  --color-text-primary: #f0f0ed;
-  --color-text-secondary: #8a8f9a;
-  --color-text-muted: #555b68;
-  --color-accent: #1d4ed8;
-  --color-accent-hover: #2563eb;
+  --color-accent-yellow: #FFDE59;
+  --color-accent-orange: #FF5722;
+  --color-accent-lime: #25D366;
 }
 
-/* Dark theme (default) */
-:root {
-  --background: #0d0f12;
-  --bg-surface: #14171c;
-  --bg-card: #1b1f26;
-  --border-color: rgba(255, 255, 255, 0.08);
-  --border-hover: rgba(255, 255, 255, 0.2);
-  --text-primary: #f0f0ed;
-  --text-secondary: #8a8f9a;
-  --text-muted: #555b68;
-  --accent: #1d4ed8;
-  --accent-hover: #2563eb;
-}
-
-/* Light theme */
+/* Light Theme (Default Neo-Brutalist) */
+:root,
 [data-theme="light"] {
-  --background: #f8f8f6;
-  --bg-surface: #f3f3ee;
-  --bg-card: #ffffff;
-  --border-color: rgba(0, 0, 0, 0.08);
-  --border-hover: rgba(0, 0, 0, 0.2);
-  --text-primary: #111110;
-  --text-secondary: #555550;
-  --text-muted: #999993;
-  --accent: #1d4ed8;
-  --accent-hover: #2563eb;
+  --background: #F4F4F0;
+  --bg-surface: #ECEAE2;
+  --bg-card: #FFFFFF;
+  --border-color: #000000;
+  --border-hover: #000000;
+  --text-primary: #000000;
+  --text-secondary: #222222;
+  --text-muted: #555555;
+  --accent: #FFDE59;
+  --accent-hover: #E5C74F;
+  --accent-secondary: #FF5722;
+  --accent-terminal: #25D366;
+  --hard-shadow: 4px 4px 0px #000000;
+  --hard-shadow-hover: 6px 6px 0px #000000;
+  --hard-shadow-active: 2px 2px 0px #000000;
+  --hard-shadow-btn: 3px 3px 0px #000000;
 }
 
-/* Preset: Velvet Noir */
-[data-preset="velvet"] {
-  --background: #0d0f12;
-  --bg-surface: #14171c;
-  --bg-card: #1b1f26;
-  --border-color: rgba(255, 255, 255, 0.08);
-  --border-hover: rgba(245, 158, 11, 0.3);
-  --accent: #f59e0b;
-  --accent-hover: #d97706;
-}
-
-/* Preset: Industrial / Hardware */
-[data-preset="industrial"] {
-  --background: #111317;
-  --bg-surface: #181b20;
-  --bg-card: #1f232b;
-  --border-color: rgba(255, 255, 255, 0.1);
-  --border-hover: rgba(255, 85, 0, 0.4);
-  --accent: #ff5500;
-  --accent-hover: #e04b00;
-}
-
-/* Preset: Monochrome Brutalism */
-[data-preset="brutalism"] {
-  --background: #080808;
-  --bg-surface: #121212;
-  --bg-card: #1c1c1c;
-  --border-color: rgba(255, 255, 255, 0.18);
-  --border-hover: rgba(255, 255, 255, 0.5);
-  --accent: #ffffff;
-  --accent-hover: #e2e8f0;
-}
-
-/* Preset: Swiss Editorial */
-[data-preset="swiss"] {
-  --background: #f7f7f4;
-  --bg-surface: #efefe9;
-  --bg-card: #ffffff;
-  --border-color: rgba(0, 0, 0, 0.12);
-  --border-hover: rgba(0, 0, 0, 0.3);
-  --text-primary: #141413;
-  --text-secondary: #4a4a46;
-  --text-muted: #888880;
-  --accent: #1d4ed8;
-  --accent-hover: #1e40af;
+/* Dark Theme (Neo-Brutalist Charcoal & White Hard Border) */
+[data-theme="dark"] {
+  --background: #121316;
+  --bg-surface: #181A20;
+  --bg-card: #1A1C23;
+  --border-color: #FFFFFF;
+  --border-hover: #FFFFFF;
+  --text-primary: #F4F4F0;
+  --text-secondary: #CCCCCC;
+  --text-muted: #888888;
+  --accent: #FFDE59;
+  --accent-hover: #E5C74F;
+  --accent-secondary: #FF5722;
+  --accent-terminal: #25D366;
+  --hard-shadow: 4px 4px 0px #000000;
+  --hard-shadow-hover: 6px 6px 0px #000000;
+  --hard-shadow-active: 2px 2px 0px #000000;
+  --hard-shadow-btn: 3px 3px 0px #000000;
 }
 
 * {
@@ -100,49 +58,83 @@
 body {
   background: var(--background);
   color: var(--text-primary);
-  font-family: var(--font-sans, 'Geist', system-ui, sans-serif);
-  transition: background 0.2s ease, color 0.2s ease;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  transition: background 0.15s ease, color 0.15s ease;
 }
 
-/* Noise texture overlay */
-.noise-overlay {
+/* Card Container Base */
+.bento-card {
+  border: 2px solid var(--border-color);
+  box-shadow: var(--hard-shadow);
+  border-radius: 4px;
+  background-color: var(--bg-card);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+/* Hover State */
+.bento-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--hard-shadow-hover);
+}
+
+/* Dragging / Active State */
+.bento-card:active,
+.bento-card.is-dragging {
+  cursor: grabbing;
+  transform: translate(2px, 2px);
+  box-shadow: var(--hard-shadow-active);
+}
+
+/* Neo-brutalist button base */
+.btn-brutalist {
+  border: 2px solid var(--border-color);
+  box-shadow: var(--hard-shadow-btn);
+  border-radius: 4px;
+  font-weight: 700;
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+
+.btn-brutalist:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px var(--border-color);
+}
+
+.btn-brutalist:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0px 0px 0px var(--border-color);
+}
+
+/* Corner Crosshairs blueprint */
+.grid-crosshair {
   position: relative;
 }
-.noise-overlay::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
-  opacity: 0.025;
-  pointer-events: none;
-  z-index: 9999;
+.grid-crosshair::before,
+.grid-crosshair::after {
+  content: "+";
+  position: absolute;
+  font-family: var(--font-mono, monospace);
+  font-size: 14px;
+  color: var(--text-muted);
+  opacity: 0.6;
 }
-
-/* Bento card base */
-.bento-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
-  border-radius: 1rem;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+.grid-crosshair::before {
+  top: -8px;
+  left: -8px;
 }
-
-[data-theme="light"] .bento-card {
-  box-shadow: inset 0 1px 0 0 rgba(0, 0, 0, 0.03), 0 1px 3px 0 rgba(0, 0, 0, 0.04);
-}
-
-.bento-card:hover {
-  border-color: var(--border-hover);
+.grid-crosshair::after {
+  bottom: -8px;
+  right: -8px;
 }
 
 /* Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--bg-surface);
+  border-left: 2px solid var(--border-color);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--text-muted);
-  border-radius: 3px;
+  background: var(--border-color);
 }

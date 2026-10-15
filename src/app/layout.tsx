@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
+import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -12,18 +12,18 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "BentoGrid Maker — Build your portfolio, beautifully.",
+  title: "BentoGrid Maker — Neo-Brutalist & Tech Grid",
   description:
-    "A no-code drag-and-drop canvas to create stunning bento-style portfolio pages instantly.",
+    "A no-code canvas to create modular neo-brutalist bento portfolio pages.",
   openGraph: {
     title: "BentoGrid Maker",
-    description: "Build your modular portfolio page without code.",
+    description: "Build your modular neo-brutalist portfolio page.",
     type: "website",
   },
 };
@@ -36,10 +36,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      data-theme="dark"
-      className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} antialiased`}
+      data-theme="light"
+      className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} antialiased`}
     >
-      <body className="noise-overlay min-h-screen bg-[var(--background)] text-[var(--text-primary)]">
+      <body className="min-h-screen bg-[var(--background)] text-[var(--text-primary)]">
         {children}
       </body>
     </html>

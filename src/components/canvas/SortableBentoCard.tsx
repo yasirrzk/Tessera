@@ -79,7 +79,7 @@ export function StaticBentoCard({
       className={cn(
         getColSpan(card.layout.w),
         getRowSpan(card.layout.h),
-        "relative group transition-transform duration-200"
+        "relative group transition-all duration-100"
       )}
     >
       <div className="h-full">
@@ -87,19 +87,21 @@ export function StaticBentoCard({
       </div>
 
       {editable && (
-        <div className="absolute inset-0 rounded-xl pointer-events-none group-hover:bg-black/20 transition-colors duration-150">
-          <div className="pointer-events-auto absolute top-2 right-2 z-20 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-150">
+        <div className="absolute inset-0 rounded-none pointer-events-none group-hover:bg-black/5 transition-colors duration-100">
+          <div className="pointer-events-auto absolute top-2 right-2 z-20 flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-100">
             <button
               onClick={() => onEdit?.(card)}
-              className="flex h-6 w-6 items-center justify-center rounded-md bg-[var(--bg-surface)]/80 border border-[var(--border-color)] text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors"
+              title="Edit Card"
+              className="flex h-7 w-7 items-center justify-center rounded-none bg-[#FFDE59] border-2 border-black text-black shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer"
             >
-              <Pencil className="h-3 w-3" />
+              <Pencil className="h-3.5 w-3.5" />
             </button>
             <button
               onClick={() => onDelete?.(card.id)}
-              className="flex h-6 w-6 items-center justify-center rounded-md bg-[var(--bg-surface)]/80 border border-[var(--border-color)] text-[var(--text-muted)] hover:text-red-400 transition-colors"
+              title="Delete Card"
+              className="flex h-7 w-7 items-center justify-center rounded-none bg-[#FF5722] border-2 border-black text-white shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer"
             >
-              <Trash2 className="h-3 w-3" />
+              <Trash2 className="h-3.5 w-3.5" />
             </button>
           </div>
         </div>
@@ -137,8 +139,8 @@ export function SortableBentoCard({
         getColSpan(card.layout.w),
         getRowSpan(card.layout.h),
         "relative group",
-        isDragging && "opacity-50 scale-[0.98] rotate-1 z-50",
-        "transition-transform duration-200"
+        isDragging && "opacity-60 scale-[0.98] z-50",
+        "transition-all duration-100"
       )}
     >
       {/* Card Content */}
@@ -148,17 +150,18 @@ export function SortableBentoCard({
 
       {/* Editor Overlay Controls */}
       {editable && (
-        <div className="absolute inset-0 rounded-xl pointer-events-none group-hover:bg-black/20 transition-colors duration-150">
+        <div className="absolute inset-0 rounded-none pointer-events-none group-hover:bg-black/5 transition-colors duration-100">
           {/* Drag handle */}
           <button
             {...attributes}
             {...listeners}
+            title="Drag to reorder"
             className={cn(
               "pointer-events-auto absolute top-2 left-2 z-20",
-              "flex h-6 w-6 items-center justify-center rounded-md",
-              "bg-[var(--bg-surface)]/80 border border-[var(--border-color)]",
-              "opacity-0 group-hover:opacity-100 transition-opacity duration-150",
-              "cursor-grab active:cursor-grabbing text-[var(--text-muted)] hover:text-[var(--text-secondary)]"
+              "flex h-7 w-7 items-center justify-center rounded-none",
+              "bg-white dark:bg-[#1A1C23] border-2 border-[var(--border-color)] text-[var(--text-primary)] shadow-[2px_2px_0px_var(--border-color)]",
+              "opacity-0 group-hover:opacity-100 transition-opacity duration-100",
+              "cursor-grab active:cursor-grabbing hover:bg-[#FFDE59] hover:text-black"
             )}
           >
             <GripVertical className="h-3.5 w-3.5" />
@@ -167,21 +170,23 @@ export function SortableBentoCard({
           {/* Edit / Delete */}
           <div
             className={cn(
-              "pointer-events-auto absolute top-2 right-2 z-20 flex items-center gap-1",
-              "opacity-0 group-hover:opacity-100 transition-opacity duration-150"
+              "pointer-events-auto absolute top-2 right-2 z-20 flex items-center gap-1.5",
+              "opacity-0 group-hover:opacity-100 transition-opacity duration-100"
             )}
           >
             <button
               onClick={() => onEdit?.(card)}
-              className="flex h-6 w-6 items-center justify-center rounded-md bg-[var(--bg-surface)]/80 border border-[var(--border-color)] text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors"
+              title="Edit Card"
+              className="flex h-7 w-7 items-center justify-center rounded-none bg-[#FFDE59] border-2 border-[var(--border-color)] text-black shadow-[2px_2px_0px_var(--border-color)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer"
             >
-              <Pencil className="h-3 w-3" />
+              <Pencil className="h-3.5 w-3.5" />
             </button>
             <button
               onClick={() => onDelete?.(card.id)}
-              className="flex h-6 w-6 items-center justify-center rounded-md bg-[var(--bg-surface)]/80 border border-[var(--border-color)] text-[var(--text-muted)] hover:text-red-400 transition-colors"
+              title="Delete Card"
+              className="flex h-7 w-7 items-center justify-center rounded-none bg-[#FF5722] border-2 border-[var(--border-color)] text-white shadow-[2px_2px_0px_var(--border-color)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer"
             >
-              <Trash2 className="h-3 w-3" />
+              <Trash2 className="h-3.5 w-3.5" />
             </button>
           </div>
         </div>

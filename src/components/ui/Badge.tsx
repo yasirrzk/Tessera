@@ -10,17 +10,17 @@ export function Badge({ children, variant = "default", className }: BadgeProps) 
   return (
     <span
       className={cn(
-        "inline-flex items-center font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-sm font-medium",
+        "inline-flex items-center font-mono text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-none border border-[var(--border-color)] shadow-[1.5px_1.5px_0px_var(--border-color)]",
         variant === "default" &&
-          "bg-white/5 text-[var(--text-secondary)] border border-[var(--border-color)]",
+          "bg-[var(--bg-surface)] text-[var(--text-primary)]",
         variant === "accent" &&
-          "bg-[var(--accent)]/10 text-[var(--accent)] border border-[var(--accent)]/20",
+          "bg-[#FFDE59] text-black",
         variant === "success" &&
-          "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20",
+          "bg-[#25D366] text-black",
         variant === "warning" &&
-          "bg-amber-500/10 text-amber-400 border border-amber-500/20",
+          "bg-[#FF5722] text-white",
         variant === "muted" &&
-          "bg-transparent text-[var(--text-muted)] border border-[var(--border-color)]",
+          "bg-transparent text-[var(--text-muted)]",
         className
       )}
     >
